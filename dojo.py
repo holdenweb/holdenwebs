@@ -71,6 +71,7 @@ def on_mouse_down(pos, button):
 	if pos in ignore: # has already been matched
 		return
 	if button == mouse.LEFT and (pos):
+	# not sure why "and (pos)" - especially the parens!
 		coords = findTile(pos)
 		if coords not in STATUS:
 			STATUS.append(coords) # now they are
@@ -83,8 +84,8 @@ def on_mouse_down(pos, button):
 					# add coords to "ignore" list
 					for pos in STATUS:
 						ignore.append(pos)
-				#else:
-					# make failure sound
+				else:
+					print("Failure sound")
 				clock.schedule_unique(resume_game, 2.0)
 
 def resume_game():
