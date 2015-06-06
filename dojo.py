@@ -1,4 +1,4 @@
-2#
+#
 # TODO: Add sound effects
 #       Ignore clicks after displaying second card until
 #       either hit or miss is reported.
