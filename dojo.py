@@ -19,6 +19,7 @@ ROWS= 3
 IMSIZE = 200
 STATUS = []        # cells that have been clicked on
 ignore = []        # cells that have been matches and are no longer in play
+flippers = []      # cells that matched this turn
 
 # Create two of each card image, then randomize before creating the board
 START_IMAGES= [ "im"+str(i+1) for i in range(COLS*ROWS//2)]*2
@@ -70,18 +71,21 @@ def on_mouse_down(pos, button):
         if coords not in STATUS:
             STATUS.append(coords) # now they are
             if len(STATUS) == 1:  # 1st click - turn not yet over
-                pass
+                return
             elif len(STATUS) == 2: # 2nd click - check for match
                 (x1, y1), (x2, y2) = STATUS # an "unpacking assignment"
                 if board[x1][y1].image_name == board[x2][y2].image_name:
                     print("Success sound")
-                    # add cards to list of non-clickable positions
-                    for pos in STATUS:
-                        ignore.append(pos)
+                    # add cards to ignore list before next turn
+                    flippers[:] = STATUS[:]
                 else:
                     print("Failure sound")
                 clock.schedule_unique(next_turn, 2.0)
 
 def next_turn():
-    del STATUS[:]
+    if flippers:  # match occurred: ignore in future
+        for pos in flippers:
+            ignore.append(pos)
+        del flippers[:]
+    del STATUS[:] # forget cards clicked last turn
 
