@@ -26,16 +26,14 @@ random.shuffle(START_IMAGES)
 
 STATUS=[]
 
-board = []                    # initialize the board
+board = {}                    # initialize the board
 for row in range(ROWS):
-    new_row=[]
     for col in range(COLS):
         image_name = START_IMAGES.pop()
         temp=Actor(image_name, (col*IMSIZE, row*IMSIZE))
         temp.image_name = image_name # used to verify matches
         temp.topleft=(col*IMSIZE, row*IMSIZE)
-        new_row.append(temp)
-    board.append(new_row)
+        board[row, col] = temp
 
 def draw():                    # draw the board when pygame-zero says to
     screen.clear()
@@ -45,7 +43,7 @@ def draw():                    # draw the board when pygame-zero says to
                 checkmark.topleft = IMSIZE*col, IMSIZE*row
                 checkmark.draw()
             elif (row, col) in STATUS:    # clicked this move: show face
-                board[row][col].draw()
+                board[row,col].draw()
             else:                        # regular clickable card
                 steve.topleft = IMSIZE*col, IMSIZE*row
                 steve.draw()
@@ -73,7 +71,7 @@ def on_mouse_down(pos, button):
                 pass
             elif len(STATUS) == 2: # 2nd click - check for match
                 (x1, y1), (x2, y2) = STATUS # an "unpacking assignment"
-                if board[x1][y1].image_name == board[x2][y2].image_name:
+                if board[x1,y1].image_name == board[x2,y2].image_name:
                     print("Success sound")
                     # add cards to list of non-clickable positions
                     for pos in STATUS:
