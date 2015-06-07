@@ -12,7 +12,7 @@ Because I was in love with the presenter (I was four, and Patricia
 Driscoll must have been at least twenty-five) I wanted to do well.
 
 This particular game is often played with playing cards.
-My mother taught it calling it "Remembrance," but it
+My mother taught it to me as "Remembrance," but it
 is also known as "Pairs" and (at least in America) as "Pelmanism."
 There are probably many other names.
 It's pretty simple: you click on cards to reveal them until you
